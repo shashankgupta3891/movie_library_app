@@ -10,6 +10,11 @@ class ModifiedText extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: GoogleFonts.roboto(color: color, fontSize: size));
+    return Text(
+      text,
+      style: GoogleFonts.roboto(color: color, fontSize: size),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
+    );
   }
 }

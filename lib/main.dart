@@ -5,6 +5,8 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movie_playlist/locator.dart';
+import 'package:movie_playlist/provider/provider_scope.dart';
 
 import 'decorations.dart';
 import 'firebase_options.dart';
@@ -23,6 +25,7 @@ final actionCodeSettings = ActionCodeSettings(
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setup();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FirebaseUIAuth.configureProviders([
@@ -39,7 +42,7 @@ Future<void> main() async {
     // ),
   ]);
 
-  runApp(const FirebaseAuthUIExample());
+  runApp(const ProviderScope(child: MovieLibraryApp()));
 }
 
 // Overrides a label for en locale
@@ -52,8 +55,8 @@ class LabelOverrides extends DefaultLocalizations {
   String get emailInputLabel => 'Enter your email';
 }
 
-class FirebaseAuthUIExample extends StatelessWidget {
-  const FirebaseAuthUIExample({Key? key}) : super(key: key);
+class MovieLibraryApp extends StatelessWidget {
+  const MovieLibraryApp({Key? key}) : super(key: key);
 
   String get initialRoute {
     final auth = FirebaseAuth.instance;

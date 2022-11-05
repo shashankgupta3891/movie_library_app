@@ -10,7 +10,7 @@ class MovieResult {
   String? releaseDate;
   String? title;
   bool? video;
-  double? voteAverage;
+  num? voteAverage;
   int? voteCount;
   double? popularity;
   String? firstAirDate;
@@ -56,7 +56,9 @@ class MovieResult {
     popularity = json['popularity'];
     firstAirDate = json['first_air_date'];
     name = json['name'];
-    originCountry = json['origin_country'].cast<String>();
+    originCountry =
+        (json['origin_country'] as List?)?.map((e) => e.toString()).toList() ??
+            [];
     originalName = json['original_name'];
   }
 

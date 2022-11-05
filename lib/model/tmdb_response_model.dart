@@ -6,8 +6,12 @@ class TMDBResponseModel {
   int? totalPages;
   int? totalResults;
 
-  TMDBResponseModel(
-      {this.page, this.results, this.totalPages, this.totalResults});
+  TMDBResponseModel({
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  });
 
   TMDBResponseModel.fromJson(Map<String, dynamic> json) {
     page = json['page'];
