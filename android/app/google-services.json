@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "213494682617",
+    "project_id": "movie-playlist-2af8e",
+    "storage_bucket": "movie-playlist-2af8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213494682617:android:41e44ea6d409d3c751a328",
+        "android_client_info": {
+          "package_name": "com.example.movie_playlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213494682617-b9tk641pob3h2lf2qk77i9nosfoac0m9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdU6dNg-hQOviw5a8oeXdtlFK41RKby-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "213494682617-b9tk641pob3h2lf2qk77i9nosfoac0m9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
