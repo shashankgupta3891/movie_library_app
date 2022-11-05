@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'decorations.dart';
 import 'firebase_options.dart';
+import 'module/home/view/screen/home_screen.dart';
 
 final actionCodeSettings = ActionCodeSettings(
   url: 'https://flutterfire-e2e-tests.firebaseapp.com',
@@ -268,39 +269,6 @@ class FirebaseAuthUIExample extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         FirebaseUILocalizations.delegate,
       ],
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(color: Colors.blue),
-              child: Container(),
-            )
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        title: const Text("Home"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              FirebaseUIAuth.signOut(context: context);
-              Navigator.pushReplacementNamed(context, '/sign-in');
-            },
-            icon: const Icon(Icons.logout),
-          )
-        ],
-      ),
-      body: const Text("Body"),
     );
   }
 }

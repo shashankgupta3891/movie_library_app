@@ -42,6 +42,9 @@ dependencies:
   firebase_ui_oauth_google: ^1.0.4
   firebase_ui_oauth_facebook: ^1.0.4
 
+  tmdb_api: ^2.1.4
+  google_fonts: ^3.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
