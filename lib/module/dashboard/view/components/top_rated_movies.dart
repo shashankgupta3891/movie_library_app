@@ -10,6 +10,6 @@ class TopRatedMovies extends StatelessWidget {
     final movieData = context.select<DashboardViewModel, List<MovieResult>>(
         (value) => value.topratedmovies);
 
-    return MovieList(movieResultList: movieData);
+    return MovieList(title: "Top Rated Movies", movieResultList: movieData);
   }
 }

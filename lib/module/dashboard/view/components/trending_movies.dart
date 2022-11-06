@@ -10,6 +10,6 @@ class TrendingMovies extends StatelessWidget {
     final movieData = context.select<DashboardViewModel, List<MovieResult>>(
         (value) => value.trendingmovies);
 
-    return MovieList(movieResultList: movieData);
+    return MovieList(title: "Trending Movies", movieResultList: movieData);
   }
 }

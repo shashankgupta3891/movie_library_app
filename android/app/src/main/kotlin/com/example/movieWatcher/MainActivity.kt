@@ -1,4 +1,4 @@
-package com.example.movie_playlist
+package com.example.movieWatcher
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -20,8 +20,7 @@ class CloudDBRepository {
     );
   }
 
-  Stream<FirestoreUserModel> getUserDataSnapshot(
-      String uid, MovieResult movieResult) {
+  Stream<FirestoreUserModel> getUserDataSnapshot(String uid) {
     return _firebaseFirestore
         .collection(CollectionType.users.name)
         .doc(uid)

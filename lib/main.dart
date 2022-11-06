@@ -77,7 +77,7 @@ class MovieLibraryApp extends StatelessWidget {
       ),
       initialRoute: RouteManager.initialRoute,
       routes: RouteManager.routes,
-      title: 'Movie Library App',
+      title: 'Movie Watcher',
       debugShowCheckedModeBanner: false,
       locale: const Locale('en'),
       localizationsDelegates: [

@@ -4,6 +4,8 @@ import 'package:movie_playlist/core/repository/firebase_repository.dart';
 import 'package:movie_playlist/core/repository/tmdb_api_repository.dart';
 import 'package:movie_playlist/module/auth/services/auth_services.dart';
 
+import 'module/dashboard/services/dashboard_service.dart';
+
 final locator = GetIt.instance;
 
 void setupDependencies() {
@@ -19,4 +21,5 @@ void setupRepository() {
 
 void setupService() {
   locator.registerSingleton<AuthServices>(AuthServices());
+  locator.registerSingleton<MovieService>(MovieService());
 }

@@ -1,6 +1,7 @@
 import 'package:movie_playlist/common_import/ui_common_import.dart';
 import 'package:movie_playlist/model/movie_result.dart';
 import 'package:movie_playlist/module/common/components/text_components.dart';
+import 'package:movie_playlist/module/search/controller/search_viewmodel.dart';
 
 class SearchCard extends StatelessWidget {
   const SearchCard({
@@ -12,6 +13,7 @@ class SearchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<SearchViewModel>();
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       // color: Colors.green,
@@ -63,7 +65,49 @@ class SearchCard extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.adaptive.more)),
+          PopupMenuButton<int>(
+            itemBuilder: (context) => [
+              // PopupMenuItem 1
+              PopupMenuItem(
+                value: 0,
+                // row with 2 children
+                child: Row(
+                  children: const [
+                    Icon(Icons.public),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Save to Public List"),
+                  ],
+                ),
+              ),
+              // PopupMenuItem 2
+              PopupMenuItem(
+                value: 1,
+                // row with two children
+                child: Row(
+                  children: const [
+                    Icon(Icons.security),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Save to Private List")
+                  ],
+                ),
+              ),
+            ],
+            offset: const Offset(0, 100),
+            color: Colors.grey,
+            elevation: 2,
+            // on selected we show the dialog box
+            onSelected: (value) {
+              if (value == 1) {
+                viewModel.saveMovie(movieResult: movieData, isPrivate: false);
+              } else {
+                viewModel.saveMovie(movieResult: movieData, isPrivate: true);
+              }
+            },
+          ),
         ],
       ),
     );

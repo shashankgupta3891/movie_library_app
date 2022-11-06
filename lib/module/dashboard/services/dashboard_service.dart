@@ -1,6 +1,7 @@
 import 'package:movie_playlist/core/repository/cloud_db_repository.dart';
 import 'package:movie_playlist/core/repository/firebase_repository.dart';
 import 'package:movie_playlist/locator.dart';
+import 'package:movie_playlist/model/firebase_user_model.dart';
 import 'package:movie_playlist/model/movie_result.dart';
 
 class MovieService {
@@ -29,5 +30,10 @@ class MovieService {
         await _cloudDBRepositoy.setPublicMovieList(user.uid, movieResultList);
       }
     }
+  }
+
+  Stream<FirestoreUserModel> getUserDataSnapshot() {
+    return _cloudDBRepositoy
+        .getUserDataSnapshot(_firebaseRepository.currentUser!.uid);
   }
 }

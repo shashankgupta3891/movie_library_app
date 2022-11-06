@@ -14,20 +14,21 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: [
           StreamBuilder<User?>(
-              stream: viewModel.userChanges(),
-              builder: (context, snapshot) {
-                final user = snapshot.data;
-                return UserAccountsDrawerHeader(
-                  accountEmail: Text(user?.email ?? 'NA'),
-                  accountName: Text(user?.displayName ?? 'NA'),
-                  currentAccountPicture: const CircleAvatar(
-                    child: Icon(
-                      Icons.person,
-                      size: 40,
-                    ),
+            stream: viewModel.userChanges(),
+            builder: (context, snapshot) {
+              final user = snapshot.data;
+              return UserAccountsDrawerHeader(
+                accountEmail: Text(user?.email ?? 'NA'),
+                accountName: Text(user?.displayName ?? 'NA'),
+                currentAccountPicture: const CircleAvatar(
+                  child: Icon(
+                    Icons.person,
+                    size: 40,
                   ),
-                );
-              }),
+                ),
+              );
+            },
+          ),
           ListTile(
             title: const Text('Profile'),
             leading: const Icon(Icons.person),
@@ -39,9 +40,7 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Library'),
             leading: const Icon(Icons.list),
             onTap: () {
-              FirebaseUIAuth.signOut(context: context);
-              Navigator.pushReplacementNamed(
-                  context, RouteManager.signInScreen);
+              Navigator.pushNamed(context, RouteManager.libraryScreen);
             },
           ),
           ListTile(

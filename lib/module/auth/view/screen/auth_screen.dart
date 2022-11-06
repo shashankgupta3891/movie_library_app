@@ -2,6 +2,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:movie_playlist/common_import/ui_common_import.dart';
 import 'package:movie_playlist/module/common/components/image_components.dart';
 import 'package:movie_playlist/provider/app_provider.dart';
+import 'package:movie_playlist/route/route_manager.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({
@@ -27,9 +28,9 @@ class AuthScreen extends StatelessWidget {
         // }),
         AuthStateChangeAction<SignedIn>((context, state) {
           if (!state.user!.emailVerified) {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, RouteManager.homeScreen);
           } else {
-            Navigator.pushReplacementNamed(context, '/profile');
+            Navigator.pushReplacementNamed(context, RouteManager.profileScreen);
           }
         }),
         AuthStateChangeAction<UserCreated>((context, state) {

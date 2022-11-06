@@ -4,6 +4,7 @@ import 'package:movie_playlist/common_import/ui_common_import.dart';
 import 'package:movie_playlist/module/auth/view/screen/auth_screen.dart';
 import 'package:movie_playlist/module/auth/view/screen/profile_screen.dart';
 import 'package:movie_playlist/module/dashboard/view/screen/dashboard_screen.dart';
+import 'package:movie_playlist/module/dashboard/view/screen/library_screen.dart';
 import 'package:movie_playlist/module/search/view/screen/search_screen.dart';
 
 class RouteManager {
@@ -12,6 +13,7 @@ class RouteManager {
 
   static const signInScreen = '/sign-in';
   static const searchScreen = '/search';
+  static const libraryScreen = '/library';
 
   static final _mfaAction = AuthStateChangeAction<MFARequired>(
     (context, state) async {
@@ -43,6 +45,9 @@ class RouteManager {
   static final routes = {
     signInScreen: (context) {
       return AuthScreen(mfaAction: _mfaAction);
+    },
+    libraryScreen: (context) {
+      return const LibraryScreen();
     },
     // '/verify-email': (context) {
     //   return EmailVerificationScreen(
