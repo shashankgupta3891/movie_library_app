@@ -1,16 +1,39 @@
-# movie_playlist
+## Movie Watcher  [![GitHub stars](https://img.shields.io/github/stars/shashankgupta3891/movie_library_app?style=social)](https://github.com/shashankgupta3891/movie_library_app)
 
-A new Flutter project.
+## Download App
+<a href="https://github.com/shashankgupta3891/bluestack_assignment/tree/master/output_apks"><img src="https://playerzon.com/asset/download.png" width="200"></img></a>
 
-## Getting Started
+Features Implemented: |       
+:-------------------------|
 
-This project is a starting point for a Flutter application.
+|Login|
+|Registration|
+|Searching|
+|Save Library |
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots and Video demo
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+ Video Demo     | Home Screen
+:-------------------------:|:-------------------------:
+![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/demo.gif?raw=true)| ![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/home_screen.jpg?raw=true)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Loading Screen             |  Login Screen
+:-------------------------:|:-------------------------:
+![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/loading_screen.jpg?raw=true)|![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/login_screen.jpg?raw=true)
+
+## Flutter plugins
+Plugin Name        |       
+:-------------------------|
+|[flutter_localizations](https://flutter.dev/docs/development/accessibility-and-localization/internationalization) |
+|[intl](https://pub.dev/packages/intl) |
+|[provider](https://pub.dev/packages/provider)|
+|[get_it](https://pub.dev/packages/get_it)|
+|[shared_preferences](https://pub.dev/packages/shared_preferences)|
+|[flutter_launcher_icons](https://github.com/TheAlphamerc/flutter_plugin_filter_list)|
+|[flutter_keyboard_visibility](https://pub.dev/packages/flutter_launcher_icons)|
+|[rounded_loading_button](https://pub.dev/packages/rounded_loading_button)|
+|[tuple](https://pub.dev/packages/tuple)|
+
+### Created By
+
+[Shashank Gupta](https://github.com/shashankgupta3891) 

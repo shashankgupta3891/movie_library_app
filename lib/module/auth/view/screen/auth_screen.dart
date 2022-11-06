@@ -28,7 +28,7 @@ class AuthScreen extends StatelessWidget {
         // }),
         AuthStateChangeAction<SignedIn>((context, state) {
           if (!state.user!.emailVerified) {
-            Navigator.pushNamed(context, RouteManager.homeScreen);
+            Navigator.pushReplacementNamed(context, RouteManager.homeScreen);
           } else {
             Navigator.pushReplacementNamed(context, RouteManager.profileScreen);
           }
@@ -40,7 +40,7 @@ class AuthScreen extends StatelessWidget {
           }
 
           if (!state.credential.user!.emailVerified) {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushReplacementNamed(context, '/');
           } else {
             Navigator.pushReplacementNamed(context, '/profile');
           }
