@@ -9,29 +9,39 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user =
-        context.select<AppProvider, User?>((value) => value.currentUser);
+    final viewModel = context.read<AppProvider>();
     return Drawer(
       child: Column(
         children: [
-          UserAccountsDrawerHeader(
-            // decoration: BoxDecoration(
-            //   color: Colors.blue,
-            // ),
-            accountEmail: Text(user?.email ?? 'NA'),
-            accountName: Text(user?.displayName ?? 'NA'),
-            currentAccountPicture: const CircleAvatar(
-              child: Icon(
-                Icons.person,
-                size: 40,
-              ),
-            ),
-          ),
+          StreamBuilder<User?>(
+              stream: viewModel.userChanges(),
+              builder: (context, snapshot) {
+                final user = snapshot.data;
+                return UserAccountsDrawerHeader(
+                  accountEmail: Text(user?.email ?? 'NA'),
+                  accountName: Text(user?.displayName ?? 'NA'),
+                  currentAccountPicture: const CircleAvatar(
+                    child: Icon(
+                      Icons.person,
+                      size: 40,
+                    ),
+                  ),
+                );
+              }),
           ListTile(
             title: const Text('Profile'),
             leading: const Icon(Icons.person),
             onTap: () {
               Navigator.pushNamed(context, RouteManager.profileScreen);
+            },
+          ),
+          ListTile(
+            title: const Text('Library'),
+            leading: const Icon(Icons.list),
+            onTap: () {
+              FirebaseUIAuth.signOut(context: context);
+              Navigator.pushReplacementNamed(
+                  context, RouteManager.signInScreen);
             },
           ),
           ListTile(
