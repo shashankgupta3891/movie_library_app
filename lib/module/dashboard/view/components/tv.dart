@@ -1,14 +1,14 @@
 import 'package:movie_playlist/common_import/ui_common_import.dart';
 import 'package:movie_playlist/model/movie_result.dart';
 import 'package:movie_playlist/module/common/components/text_components.dart';
-import 'package:movie_playlist/module/home/controller/home_viewmodel.dart';
+import 'package:movie_playlist/module/dashboard/controller/dashboard_viewmodel.dart';
 
 class TV extends StatelessWidget {
   const TV({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final movieData =
-        context.select<HomeViewModel, List<MovieResult>>((value) => value.tv);
+    final movieData = context
+        .select<DashboardViewModel, List<MovieResult>>((value) => value.tv);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,7 +21,7 @@ class TV extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         SizedBox(
-          height: 200,
+          height: 210,
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -46,7 +46,7 @@ class TV extends StatelessWidget {
                       height: 140,
                     ),
                     const SizedBox(height: 5),
-                    Container(
+                    Flexible(
                       child: ModifiedText(
                         size: 15,
                         text: movieData[index].originalName ?? 'Loading',

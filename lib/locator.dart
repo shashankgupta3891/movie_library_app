@@ -1,8 +1,22 @@
 import 'package:get_it/get_it.dart';
-import 'package:movie_playlist/core/api/tmdb_api_repository.dart';
+import 'package:movie_playlist/core/repository/cloud_db_repository.dart';
+import 'package:movie_playlist/core/repository/firebase_repository.dart';
+import 'package:movie_playlist/core/repository/tmdb_api_repository.dart';
+import 'package:movie_playlist/module/auth/services/auth_services.dart';
 
 final locator = GetIt.instance;
 
-void setup() {
+void setupDependencies() {
+  setupRepository();
+  setupService();
+}
+
+void setupRepository() {
   locator.registerSingleton<TMDBApiRepository>(TMDBApiRepository());
+  locator.registerSingleton<FirebaseRepository>(FirebaseRepository());
+  locator.registerSingleton<CloudDBRepository>(CloudDBRepository());
+}
+
+void setupService() {
+  locator.registerSingleton<AuthServices>(AuthServices());
 }

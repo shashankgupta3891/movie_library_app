@@ -5,12 +5,12 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movie_playlist/core/localization/label_overrides_localization.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/provider/provider_scope.dart';
+import 'package:movie_playlist/route/route_manager.dart';
 
-import 'decorations.dart';
 import 'firebase_options.dart';
-import 'module/home/view/screen/home_screen.dart';
 
 final actionCodeSettings = ActionCodeSettings(
   url: 'https://flutterfire-e2e-tests.firebaseapp.com',
@@ -25,7 +25,7 @@ final actionCodeSettings = ActionCodeSettings(
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setup();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FirebaseUIAuth.configureProviders([
@@ -42,35 +42,17 @@ Future<void> main() async {
     // ),
   ]);
 
+  setupDependencies();
+
   runApp(const ProviderScope(child: MovieLibraryApp()));
 }
 
 // Overrides a label for en locale
 // To add localization for a custom language follow the guide here:
 // https://flutter.dev/docs/development/accessibility-and-localization/internationalization#an-alternative-class-for-the-apps-localized-resources
-class LabelOverrides extends DefaultLocalizations {
-  const LabelOverrides();
-
-  @override
-  String get emailInputLabel => 'Enter your email';
-}
 
 class MovieLibraryApp extends StatelessWidget {
   const MovieLibraryApp({Key? key}) : super(key: key);
-
-  String get initialRoute {
-    final auth = FirebaseAuth.instance;
-
-    if (auth.currentUser == null) {
-      return '/sign-in';
-    }
-
-    if (!auth.currentUser!.emailVerified && auth.currentUser!.email != null) {
-      return '/';
-    }
-
-    return '/profile';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,22 +63,10 @@ class MovieLibraryApp extends StatelessWidget {
       ),
     );
 
-    final mfaAction = AuthStateChangeAction<MFARequired>(
-      (context, state) async {
-        final nav = Navigator.of(context);
-
-        await startMFAVerification(
-          resolver: state.resolver,
-          context: context,
-        );
-
-        nav.pushReplacementNamed('/profile');
-      },
-    );
-
     return MaterialApp(
       theme: ThemeData(
-        brightness: Brightness.light,
+        useMaterial3: true,
+        brightness: Brightness.dark,
         visualDensity: VisualDensity.standard,
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
@@ -105,165 +75,9 @@ class MovieLibraryApp extends StatelessWidget {
         textButtonTheme: TextButtonThemeData(style: buttonStyle),
         outlinedButtonTheme: OutlinedButtonThemeData(style: buttonStyle),
       ),
-      initialRoute: initialRoute,
-      routes: {
-        '/sign-in': (context) {
-          return SignInScreen(
-            actions: [
-              // ForgotPasswordAction((context, email) {
-              //   Navigator.pushNamed(
-              //     context,
-              //     '/forgot-password',
-              //     arguments: {'email': email},
-              //   );
-              // }),
-              // VerifyPhoneAction((context, _) {
-              //   Navigator.pushNamed(context, '/phone');
-              // }),
-              AuthStateChangeAction<SignedIn>((context, state) {
-                if (!state.user!.emailVerified) {
-                  Navigator.pushNamed(context, '/');
-                } else {
-                  Navigator.pushReplacementNamed(context, '/profile');
-                }
-              }),
-              AuthStateChangeAction<UserCreated>((context, state) {
-                if (!state.credential.user!.emailVerified) {
-                  Navigator.pushNamed(context, '/');
-                } else {
-                  Navigator.pushReplacementNamed(context, '/profile');
-                }
-              }),
-              mfaAction,
-              // EmailLinkSignInAction((context) {
-              //   Navigator.pushReplacementNamed(context, '/email-link-sign-in');
-              // }),
-            ],
-            styles: const {
-              EmailFormStyle(signInButtonVariant: ButtonVariant.filled),
-            },
-            headerBuilder: headerImage('assets/images/flutterfire_logo.png'),
-            sideBuilder: sideImage('assets/images/flutterfire_logo.png'),
-            subtitleBuilder: (context, action) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  action == AuthAction.signIn
-                      ? 'Welcome to Firebase UI! Please sign in to continue.'
-                      : 'Welcome to Firebase UI! Please create an account to continue',
-                ),
-              );
-            },
-            footerBuilder: (context, action) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Text(
-                    action == AuthAction.signIn
-                        ? 'By signing in, you agree to our terms and conditions.'
-                        : 'By registering, you agree to our terms and conditions.',
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                ),
-              );
-            },
-          );
-        },
-        // '/verify-email': (context) {
-        //   return EmailVerificationScreen(
-        //     headerBuilder: headerIcon(Icons.verified),
-        //     sideBuilder: sideIcon(Icons.verified),
-        //     // actionCodeSettings: actionCodeSettings,
-        //     actions: [
-        //       EmailVerifiedAction(() {
-        //         Navigator.pushReplacementNamed(context, '/profile');
-        //       }),
-        //       AuthCancelledAction((context) {
-        //         FirebaseUIAuth.signOut(context: context);
-        //         Navigator.pushReplacementNamed(context, '/');
-        //       }),
-        //     ],
-        //   );
-        // },
-        // '/phone': (context) {
-        //   return PhoneInputScreen(
-        //     actions: [
-        //       SMSCodeRequestedAction((context, action, flowKey, phone) {
-        //         Navigator.of(context).pushReplacementNamed(
-        //           '/sms',
-        //           arguments: {
-        //             'action': action,
-        //             'flowKey': flowKey,
-        //             'phone': phone,
-        //           },
-        //         );
-        //       }),
-        //     ],
-        //     headerBuilder: headerIcon(Icons.phone),
-        //     sideBuilder: sideIcon(Icons.phone),
-        //   );
-        // },
-        // '/sms': (context) {
-        //   final arguments = ModalRoute.of(context)?.settings.arguments
-        //       as Map<String, dynamic>?;
-
-        //   return SMSCodeInputScreen(
-        //     actions: [
-        //       AuthStateChangeAction<SignedIn>((context, state) {
-        //         Navigator.of(context).pushReplacementNamed('/profile');
-        //       })
-        //     ],
-        //     flowKey: arguments?['flowKey'],
-        //     action: arguments?['action'],
-        //     headerBuilder: headerIcon(Icons.sms_outlined),
-        //     sideBuilder: sideIcon(Icons.sms_outlined),
-        //   );
-        // },
-        // '/forgot-password': (context) {
-        //   final arguments = ModalRoute.of(context)?.settings.arguments
-        //       as Map<String, dynamic>?;
-
-        //   return ForgotPasswordScreen(
-        //     email: arguments?['email'],
-        //     headerMaxExtent: 200,
-        //     headerBuilder: headerIcon(Icons.lock),
-        //     sideBuilder: sideIcon(Icons.lock),
-        //   );
-        // },
-
-        '/': (context) {
-          final arguments = ModalRoute.of(context)?.settings.arguments
-              as Map<String, dynamic>?;
-
-          return const HomeScreen();
-        },
-        // '/email-link-sign-in': (context) {
-        //   return EmailLinkSignInScreen(
-        //     actions: [
-        //       AuthStateChangeAction<SignedIn>((context, state) {
-        //         Navigator.pushReplacementNamed(context, '/');
-        //       }),
-        //     ],
-        //     provider: emailLinkProviderConfig,
-        //     headerMaxExtent: 200,
-        //     headerBuilder: headerIcon(Icons.link),
-        //     sideBuilder: sideIcon(Icons.link),
-        //   );
-        // },
-        '/profile': (context) {
-          return ProfileScreen(
-            actions: [
-              SignedOutAction((context) {
-                Navigator.pushReplacementNamed(context, '/sign-in');
-              }),
-              mfaAction,
-            ],
-            // actionCodeSettings: actionCodeSettings,
-            showMFATile: true,
-          );
-        },
-      },
-      title: 'Firebase UI demo',
+      initialRoute: RouteManager.initialRoute,
+      routes: RouteManager.routes,
+      title: 'Movie Library App',
       debugShowCheckedModeBanner: false,
       locale: const Locale('en'),
       localizationsDelegates: [

@@ -1,7 +1,7 @@
 import 'package:movie_playlist/common_import/ui_common_import.dart';
 import 'package:movie_playlist/model/movie_result.dart';
 import 'package:movie_playlist/module/common/components/text_components.dart';
-import 'package:movie_playlist/module/home/view/screen/description.dart';
+import 'package:movie_playlist/module/dashboard/view/screen/description.dart';
 
 class MovieList extends StatelessWidget {
   final List<MovieResult> movieResultList;
@@ -23,7 +23,6 @@ class MovieList extends StatelessWidget {
         SizedBox(
           height: 270,
           child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 10),
             scrollDirection: Axis.horizontal,
             itemCount: movieResultList.length,

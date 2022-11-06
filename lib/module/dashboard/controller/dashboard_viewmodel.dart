@@ -1,9 +1,9 @@
-import 'package:movie_playlist/core/api/tmdb_api_repository.dart';
 import 'package:movie_playlist/core/base/base_provider.dart';
+import 'package:movie_playlist/core/repository/tmdb_api_repository.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/model/movie_result.dart';
 
-class HomeViewModel extends BaseProvider {
+class DashboardViewModel extends BaseProvider {
   final TMDBApiRepository _tmdbApiRepository = locator.get<TMDBApiRepository>();
 
   List<MovieResult> _trendingmovies = [];

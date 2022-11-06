@@ -1,5 +1,6 @@
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:movie_playlist/module/home/controller/home_viewmodel.dart';
+import 'package:movie_playlist/module/dashboard/controller/dashboard_viewmodel.dart';
+import 'package:movie_playlist/module/search/controller/search_viewmodel.dart';
 import 'package:movie_playlist/provider/app_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,8 @@ class ProviderScope extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AppProvider()),
-        ChangeNotifierProvider(create: (context) => HomeViewModel()),
+        ChangeNotifierProvider(create: (context) => DashboardViewModel()),
+        ChangeNotifierProvider(create: (context) => SearchViewModel()),
       ],
       child: child,
     );

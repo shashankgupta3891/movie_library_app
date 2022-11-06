@@ -29,6 +29,11 @@ class TMDBApiRepository {
     return _parseTMDBReponseModelJson(response);
   }
 
+  Future<TMDBResponseModel> getSearchedMovieResult(String query) async {
+    final response = await _tmdbWithCustomLogs.v3.search.queryMovies(query);
+    return _parseTMDBReponseModelJson(response);
+  }
+
   TMDBResponseModel _parseTMDBReponseModelJson(Map response) {
     final convertedResponse =
         response.map((key, value) => MapEntry(key.toString(), value));

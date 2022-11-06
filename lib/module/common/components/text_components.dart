@@ -5,8 +5,10 @@ class ModifiedText extends StatelessWidget {
   final String text;
   final Color? color;
   final double? size;
+  final int maxLines;
 
-  const ModifiedText({Key? key, required this.text, this.color, this.size})
+  const ModifiedText(
+      {Key? key, required this.text, this.color, this.size, this.maxLines = 2})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class ModifiedText extends StatelessWidget {
       text,
       style: GoogleFonts.roboto(color: color, fontSize: size),
       overflow: TextOverflow.ellipsis,
-      maxLines: 2,
+      maxLines: maxLines,
     );
   }
 }
