@@ -15,11 +15,11 @@ Features Implemented: |
 
  Video Demo     | Home Screen
 :-------------------------:|:-------------------------:
-![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/demo.gif?raw=true)| ![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/home_screen.jpg?raw=true)
+![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/demo.gif?raw=true)| ![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshot/ss1.jpeg?raw=true)
 
 Loading Screen             |  Login Screen
 :-------------------------:|:-------------------------:
-![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/loading_screen.jpg?raw=true)|![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshots/login_screen.jpg?raw=true)
+![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshot/ss2.jpeg?raw=true)|![](https://github.com/shashankgupta3891/bluestack_assignment/blob/master/screenshot/ss3.jpeg?raw=true)
 
 ## Flutter plugins
 Plugin Name        |       
