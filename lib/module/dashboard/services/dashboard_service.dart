@@ -36,4 +36,21 @@ class MovieService {
     return _cloudDBRepositoy
         .getUserDataSnapshot(_firebaseRepository.currentUser!.uid);
   }
+
+  Future<void> createPlayList(String name, {bool isPrivate = false}) async {
+    final user = _firebaseRepository.currentUser;
+    if (user != null) {
+      await _cloudDBRepositoy.createPlaylist(user.uid, name, isPrivate);
+    }
+  }
+
+  Future<void> addMovieToPlaylist(
+    List<String> idList,
+    MovieResult movieResult,
+  ) async {
+    final user = _firebaseRepository.currentUser;
+    if (user != null) {
+      await _cloudDBRepositoy.addMovieToPlaylist(user.uid, idList, movieResult);
+    }
+  }
 }

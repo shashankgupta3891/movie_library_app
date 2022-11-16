@@ -3,6 +3,8 @@ import 'package:movie_playlist/model/movie_result.dart';
 import 'package:movie_playlist/module/common/components/text_components.dart';
 import 'package:movie_playlist/module/search/controller/search_viewmodel.dart';
 
+import '../../../dashboard/view/reactive_components/save_movie_playlist_bottom_sheet.dart';
+
 class SearchCard extends StatelessWidget {
   const SearchCard({
     Key? key,
@@ -95,6 +97,19 @@ class SearchCard extends StatelessWidget {
                   ],
                 ),
               ),
+              PopupMenuItem(
+                value: 1,
+                // row with two children
+                child: Row(
+                  children: const [
+                    Icon(Icons.security),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Add To Playlist")
+                  ],
+                ),
+              ),
             ],
             offset: const Offset(0, 100),
             color: Colors.grey,
@@ -103,8 +118,11 @@ class SearchCard extends StatelessWidget {
             onSelected: (value) {
               if (value == 1) {
                 viewModel.saveMovie(movieResult: movieData, isPrivate: false);
-              } else {
+              }
+              if (value == 2) {
                 viewModel.saveMovie(movieResult: movieData, isPrivate: true);
+              } else {
+                showSaveMovieToPlayListBottomSheet(context);
               }
             },
           ),

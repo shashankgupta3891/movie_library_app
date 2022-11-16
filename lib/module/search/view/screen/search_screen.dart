@@ -66,7 +66,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       itemCount: movieData.length,
                       itemBuilder: (context, index) {
                         final movie = movieData[index];
-
                         return SearchCard(movieData: movie);
                       },
                     ),

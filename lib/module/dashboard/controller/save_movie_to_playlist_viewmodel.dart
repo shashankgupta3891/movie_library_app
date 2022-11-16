@@ -5,42 +5,16 @@ import 'package:movie_playlist/model/firebase_user_model.dart';
 import 'package:movie_playlist/model/movie_result.dart';
 import 'package:movie_playlist/module/dashboard/services/dashboard_service.dart';
 
-class DashboardViewModel extends BaseViewModel {
+class SaveMovieToPlaylistViewModel extends BaseViewModel {
   final TMDBApiRepository _tmdbApiRepository = locator.get<TMDBApiRepository>();
   final MovieService _movieService = locator.get<MovieService>();
 
-  List<MovieResult> _trendingmovies = [];
-  List<MovieResult> get trendingmovies => _trendingmovies;
+  SaveMovieToPlaylistViewModel(this.movieToSave);
 
-  List<MovieResult> _topratedmovies = [];
-  List<MovieResult> get topratedmovies => _topratedmovies;
-
-  List<MovieResult> _tv = [];
-  List<MovieResult> get tv => _tv;
+  final MovieResult movieToSave;
 
   @override
-  Future<void> onRefresh() async {
-    super.onInitDataLoad([
-      getTrendingMovie(),
-      getTopRatedMovie(),
-      getPopularMovie(),
-    ]);
-  }
-
-  Future<void> getTrendingMovie() async {
-    final response = await _tmdbApiRepository.getTrending();
-    _trendingmovies = response.results ?? [];
-  }
-
-  Future<void> getTopRatedMovie() async {
-    final response = await _tmdbApiRepository.getTopRated();
-    _topratedmovies = response.results ?? [];
-  }
-
-  Future<void> getPopularMovie() async {
-    final response = await _tmdbApiRepository.getPopular();
-    _tv = response.results ?? [];
-  }
+  Future<void> onRefresh() async {}
 
   Stream<FirestoreUserModel> getUserDataSnapshot() {
     return _movieService.getUserDataSnapshot();
