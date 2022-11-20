@@ -122,7 +122,7 @@ class SearchCard extends StatelessWidget {
               if (value == 2) {
                 viewModel.saveMovie(movieResult: movieData, isPrivate: true);
               } else {
-                showSaveMovieToPlayListBottomSheet(context);
+                showSaveMovieToPlayListBottomSheet(context, movieData);
               }
             },
           ),

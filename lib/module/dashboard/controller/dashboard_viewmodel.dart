@@ -3,6 +3,7 @@ import 'package:movie_playlist/core/repository/tmdb_api_repository.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/model/firebase_user_model.dart';
 import 'package:movie_playlist/model/movie_result.dart';
+import 'package:movie_playlist/model/playlist_model.dart';
 import 'package:movie_playlist/module/dashboard/services/dashboard_service.dart';
 
 class DashboardViewModel extends BaseViewModel {
@@ -54,5 +55,16 @@ class DashboardViewModel extends BaseViewModel {
   Future<void> removeMovie(
       {required MovieResult movieResult, bool isPrivate = false}) async {
     await _movieService.addMovieToList(movieResult, isPrivate: isPrivate);
+  }
+
+  Stream<PlayListModel> getPlaylist(String playlistId) {
+    return _movieService.getPlayList(playlistId);
+  }
+
+  Future<MovieResult> getMovie(String movieId) async {
+    final data = await _movieService.getMovie(movieId);
+
+    log(data.toJson());
+    return data;
   }
 }

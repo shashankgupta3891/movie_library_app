@@ -31,6 +31,38 @@ class CloudDBRepository {
     });
   }
 
+  Stream<PlayListModel> getPlaylist(String playlistId) {
+    return _firebaseFirestore
+        .collection(CollectionType.playlist.name)
+        .doc(playlistId)
+        .snapshots()
+        .map((event) {
+      return PlayListModel.fromMap(event.data() ?? {});
+    });
+  }
+
+  Future<MovieResult> getMovie(String movieId) async {
+    final movie = await _firebaseFirestore
+        .collection(CollectionType.movie.name)
+        .doc(movieId)
+        .get();
+
+    return MovieResult.fromJson(movie.data() ?? {});
+  }
+
+  // Future<List<PlayListModel>> getPlayList(String uid) async {
+  //   final userData = _firebaseFirestore
+  //       .collection(CollectionType.users.name)
+  //       .doc(uid)
+  //       .snapshots()
+  //       .map((event) {
+  //     return FirestoreUserModel.fromJson(event.data() ?? {});
+  //   });
+
+  //   if
+
+  // }
+
   Future<void> setPrivateMovieList(
       String uid, List<MovieResult> movieResultList) async {
     await _firebaseFirestore.collection(CollectionType.users.name).doc(uid).set(
@@ -54,38 +86,59 @@ class CloudDBRepository {
     final newPlaylist = PlayListModel(
         name: name, isPrivate: isPrivate, description: "", url: "", movies: []);
 
+    final savedPlaylist = await _firebaseFirestore
+        .collection(CollectionType.playlist.name)
+        .add(newPlaylist.toMap());
+
     await _firebaseFirestore.collection(CollectionType.users.name).doc(uid).set(
       {
-        'playlist': FieldValue.arrayUnion([newPlaylist.toJson()]),
+        FirestoreUserModel.playListKey:
+            FieldValue.arrayUnion([savedPlaylist.id]),
       },
       SetOptions(merge: true),
     );
   }
 
   Future<void> addMovieToPlaylist(
-      String uid, List<String> idList, MovieResult movieResult) async {
-    final userData = await _firebaseFirestore
-        .collection(CollectionType.users.name)
-        .doc(uid)
-        .get();
+      String uid, List<String> playListIdList, MovieResult movieResult) async {
+    final movieAdded = await _firebaseFirestore
+        .collection(CollectionType.movie.name)
+        .add(movieResult.toJson());
 
-    final playlist = (userData.data()?['playlist'] as List?)
-        ?.map((e) => PlayListModel.fromJson(e))
-        .toList();
+    for (var element in playListIdList) {
+      await _firebaseFirestore
+          .collection(CollectionType.playlist.name)
+          .doc(element)
+          .set(
+        {
+          PlayListModel.movieListKey: FieldValue.arrayUnion([movieAdded.id])
+        },
+        SetOptions(merge: true),
+      );
+    }
 
-    final newPlaylist = playlist?.map((e) {
-      if (idList.contains(e.id)) {
-        e.movies.add(movieResult);
-      }
-      return e;
-    }).toList();
+    // final userData = await _firebaseFirestore
+    //     .collection(CollectionType.users.name)
+    //     .doc(uid)
+    //     .get();
 
-    await _firebaseFirestore
-        .collection(CollectionType.users.name)
-        .doc(uid)
-        .set({
-      'playlist': newPlaylist?.map((e) => e.toJson()).toList(),
-    }, SetOptions(merge: false));
+    // final playlist = (userData.data()?['playlist'] as List?)
+    //     ?.map((e) => PlayListModel.fromJson(e))
+    //     .toList();
+
+    // final newPlaylist = playlist?.map((e) {
+    //   if (idList.contains(e.id)) {
+    //     e.movies.add(movieResult);
+    //   }
+    //   return e;
+    // }).toList();
+
+    // await _firebaseFirestore
+    //     .collection(CollectionType.users.name)
+    //     .doc(uid)
+    //     .set({
+    //   'playlist': newPlaylist?.map((e) => e.toJson()).toList(),
+    // }, SetOptions(merge: false));
   }
 
   Future<void> setPublicMovieList(
@@ -97,4 +150,4 @@ class CloudDBRepository {
   }
 }
 
-enum CollectionType { users }
+enum CollectionType { users, playlist, movie }

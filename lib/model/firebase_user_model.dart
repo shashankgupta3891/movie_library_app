@@ -1,12 +1,13 @@
 import 'package:movie_playlist/model/movie_result.dart';
-import 'package:movie_playlist/model/playlist_model.dart';
 
 class FirestoreUserModel {
+  static const playListKey = 'playlist';
+
   String? email;
   String? name;
   List<MovieResult>? privateMovieList;
   List<MovieResult>? publicMovieList;
-  List<PlayListModel>? playlist;
+  List<String>? playlist;
 
   FirestoreUserModel({
     this.email,
@@ -32,10 +33,10 @@ class FirestoreUserModel {
       });
     }
 
-    if (json['playlist'] != null) {
-      playlist = <PlayListModel>[];
-      json['playlist'].forEach((v) {
-        playlist?.add(PlayListModel.fromJson(v));
+    if (json[playListKey] != null) {
+      playlist = <String>[];
+      json[playListKey].forEach((v) {
+        playlist?.add(v.toString());
       });
     }
   }
@@ -56,7 +57,7 @@ class FirestoreUserModel {
     }
 
     if (playlist != null) {
-      data['playlist'] = playlist?.map((v) => v.toJson()).toList();
+      data[playListKey] = playlist?.toList() ?? [];
     }
     return data;
   }

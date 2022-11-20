@@ -1,9 +1,14 @@
-import 'dart:developer';
+import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 
 abstract class BaseProvider extends ChangeNotifier {
   BaseProvider() {
-    log("Provider", name: runtimeType.toString());
+    log("Provider Started");
+  }
+
+  void log(Object? object) {
+    String line = "$object";
+    developer.log(line, name: runtimeType.toString());
   }
 }

@@ -7,7 +7,7 @@ class BottomSheetActionButton extends StatelessWidget {
     required this.buttonText,
   }) : super(key: key);
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String buttonText;
 
   @override

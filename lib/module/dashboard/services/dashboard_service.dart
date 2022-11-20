@@ -3,6 +3,7 @@ import 'package:movie_playlist/core/repository/firebase_repository.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/model/firebase_user_model.dart';
 import 'package:movie_playlist/model/movie_result.dart';
+import 'package:movie_playlist/model/playlist_model.dart';
 
 class MovieService {
   FirebaseRepository get _firebaseRepository => locator<FirebaseRepository>();
@@ -37,6 +38,14 @@ class MovieService {
         .getUserDataSnapshot(_firebaseRepository.currentUser!.uid);
   }
 
+  Stream<PlayListModel> getPlayList(String playListId) {
+    return _cloudDBRepositoy.getPlaylist(playListId);
+  }
+
+  Future<MovieResult> getMovie(String playListId) {
+    return _cloudDBRepositoy.getMovie(playListId);
+  }
+
   Future<void> createPlayList(String name, {bool isPrivate = false}) async {
     final user = _firebaseRepository.currentUser;
     if (user != null) {
@@ -51,6 +60,7 @@ class MovieService {
     final user = _firebaseRepository.currentUser;
     if (user != null) {
       await _cloudDBRepositoy.addMovieToPlaylist(user.uid, idList, movieResult);
+      print("_addMovieToPlayList End");
     }
   }
 }

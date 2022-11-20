@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:movie_playlist/model/movie_result.dart';
 import 'package:uuid/uuid.dart';
 
 class PlayListModel {
+  static const movieListKey = 'movies';
   String? id;
   String name;
   bool isPrivate = false;
   String description;
   String url;
-  List<MovieResult> movies = [];
+  List<String> movies = [];
   PlayListModel({
     this.id,
     required this.name,
@@ -28,7 +28,7 @@ class PlayListModel {
     bool? isPrivate,
     String? description,
     String? url,
-    List<MovieResult>? movies,
+    List<String>? movies,
   }) {
     return PlayListModel(
       id: id ?? this.id,
@@ -47,7 +47,7 @@ class PlayListModel {
       'isPrivate': isPrivate,
       'description': description,
       'url': url,
-      'movies': movies.map((x) => x.toJson()).toList(),
+      'movies': movies.toList(),
     };
   }
 
@@ -58,8 +58,8 @@ class PlayListModel {
       isPrivate: map['isPrivate'] ?? false,
       description: map['description'] ?? '',
       url: map['url'] ?? '',
-      movies: List<MovieResult>.from(
-          map['movies']?.map((x) => MovieResult.fromJson(x))),
+      movies: List<String>.from(
+          map['movies']?.map((x) => x.toString()) ?? <String>[]),
     );
   }
 
