@@ -45,7 +45,7 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('Library'),
+            title: const Text('Playlist'),
             leading: const Icon(Icons.list),
             onTap: () {
               Navigator.pushNamed(context, RouteManager.libraryScreen);

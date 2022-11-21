@@ -1,6 +1,7 @@
 import 'package:movie_playlist/model/firebase_user_model.dart';
 import 'package:movie_playlist/model/movie_result.dart';
 import 'package:movie_playlist/module/common/components/bottom_sheet_action_button.dart';
+import 'package:movie_playlist/module/common/components/future_builder_handle.dart';
 import 'package:movie_playlist/module/dashboard/view/reactive_components/create_playlist_bottom_sheet.dart';
 
 import '../../../../common_import/ui_common_import.dart';
@@ -54,41 +55,25 @@ class SaveMovieToPlayListBottomSheet extends StatelessWidget {
                 ),
                 const Divider(),
                 Expanded(
-                  child: StreamBuilder<FirestoreUserModel>(
+                  child: StreamBuilderHandle<FirestoreUserModel>(
                     stream: viewModel.getUserDataSnapshot(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (snapshot.hasError) {
-                        return Center(
-                          child: Text(snapshot.error.toString()),
-                        );
-                      }
-
-                      if (snapshot.hasData) {
-                        List<String> playListIdList =
-                            snapshot.data?.playlist ?? [];
-                        return Scrollbar(
-                          child: ListView.builder(
-                            itemCount: playListIdList.length,
-                            itemBuilder: (context, index) {
-                              return PlayListListTile(
-                                playListId: playListIdList[index],
-                              );
-                            },
-                          ),
-                        );
-                      }
-
-                      return Container();
+                    builder: (context, userData) {
+                      List<String> playListIdList = userData.playlist ?? [];
+                      return Scrollbar(
+                        child: ListView.builder(
+                          itemCount: playListIdList.length,
+                          itemBuilder: (context, index) {
+                            return PlayListListTile(
+                              playListId: playListIdList[index],
+                            );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
                 const Divider(),
-                BottomSheetActionButton(
+                ActionButton(
                   onPressed: () => {
                     viewModel.onSubmit().then((value) {
                       if (value) {
@@ -116,36 +101,22 @@ class PlayListListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<SaveMovieToPlaylistViewModel>();
-    return StreamBuilder(
+    return StreamBuilderHandle(
       stream: viewModel.getPlaylist(playListId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (snapshot.hasError) {
-          return Center(
-            child: Text(snapshot.error.toString()),
-          );
-        }
-        if (snapshot.hasData) {
-          final status = context.select<SaveMovieToPlaylistViewModel, bool>(
-              (value) => value.getSelectStatus(playListId));
-          final data = snapshot.data;
-          return CheckboxListTile(
-            title: Text(data?.name ?? 'Playlist Name'),
-            onChanged: (bool? value) {
-              if (value != null) viewModel.setSelectStatus(playListId, value);
-            },
-            value: status,
-            selected: false,
-            controlAffinity: ListTileControlAffinity.leading,
-            secondary:
-                (data?.isPrivate ?? false) ? const Icon(Icons.lock) : null,
-          );
-        }
-        return const SizedBox();
+      builder: (context, playlist) {
+        final status = context.select<SaveMovieToPlaylistViewModel, bool>(
+            (value) => value.getSelectStatus(playListId));
+
+        return CheckboxListTile(
+          title: Text(playlist.name),
+          onChanged: (bool? value) {
+            if (value != null) viewModel.setSelectStatus(playListId, value);
+          },
+          value: status,
+          selected: false,
+          controlAffinity: ListTileControlAffinity.leading,
+          secondary: (playlist.isPrivate) ? const Icon(Icons.lock) : null,
+        );
       },
     );
   }

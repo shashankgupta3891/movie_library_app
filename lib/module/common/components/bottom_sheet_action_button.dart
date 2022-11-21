@@ -1,7 +1,7 @@
 import 'package:movie_playlist/common_import/ui_common_import.dart';
 
-class BottomSheetActionButton extends StatelessWidget {
-  const BottomSheetActionButton({
+class ActionButton extends StatelessWidget {
+  const ActionButton({
     Key? key,
     required this.onPressed,
     required this.buttonText,

@@ -3,13 +3,14 @@ import 'package:movie_playlist/module/dashboard/controller/create_playlist_viewm
 
 import '../../../../common_import/ui_common_import.dart';
 
-void showCreatePlaylistBottomSheet(BuildContext context) {
+void showCreatePlaylistBottomSheet(BuildContext context,
+    {bool hideToggle = false}) {
   showModalBottomSheet(
     context: context,
     builder: (builder) {
       return ChangeNotifierProvider<CreatePlaylistViewModel>(
         create: (_) => CreatePlaylistViewModel(),
-        child: const CreatePlayListBottomSheet(),
+        child: CreatePlayListBottomSheet(hideToggle: hideToggle),
       );
     },
   );
@@ -18,7 +19,10 @@ void showCreatePlaylistBottomSheet(BuildContext context) {
 class CreatePlayListBottomSheet extends StatelessWidget {
   const CreatePlayListBottomSheet({
     Key? key,
+    required this.hideToggle,
   }) : super(key: key);
+
+  final bool hideToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +70,15 @@ class CreatePlayListBottomSheet extends StatelessWidget {
                     onChanged: viewModel.setPlaylistName,
                   ),
                 ),
-                SwitchListTile.adaptive(
-                  title: const Text("Private"),
-                  onChanged: viewModel.setIsPrivate,
-                  value: viewModel.isPrivate,
-                ),
+                if (!hideToggle)
+                  SwitchListTile.adaptive(
+                    title: const Text("Private"),
+                    onChanged: viewModel.setIsPrivate,
+                    value: viewModel.isPrivate,
+                  ),
                 const Spacer(),
                 const Divider(),
-                BottomSheetActionButton(
+                ActionButton(
                   onPressed: (viewModel.playlistName.isNotEmpty)
                       ? () {
                           viewModel

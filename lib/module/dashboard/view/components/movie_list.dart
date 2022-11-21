@@ -35,51 +35,65 @@ class MovieList extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: movieResultList.length,
                   itemBuilder: (context, index) {
+                    final movie = movieResultList[index];
                     return InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => Description(
-                              movieResult: movieResultList[index],
+                              movieResult: movie,
                               isLibrary: isLibrary,
                             ),
                           ),
                         );
                       },
-                      child: SizedBox(
-                        width: 140,
-                        child: Column(
-                          children: [
-                            Card(
-                              clipBehavior: Clip.antiAlias,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                      'https://image.tmdb.org/t/p/w500${movieResultList[index].posterPath}',
-                                    ),
-                                  ),
-                                ),
-                                height: 200,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Flexible(
-                              child: ModifiedText(
-                                size: 15,
-                                text: movieResultList[index].title ?? 'Loading',
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      child: MovieCard(movie: movie),
                     );
                   },
                 ),
         )
       ],
+    );
+  }
+}
+
+class MovieCard extends StatelessWidget {
+  final MovieResult movie;
+  const MovieCard({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 140,
+      child: Column(
+        children: [
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                  ),
+                ),
+              ),
+              height: 200,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Flexible(
+            child: ModifiedText(
+              size: 15,
+              text: movie.title ?? 'Loading',
+            ),
+          )
+        ],
+      ),
     );
   }
 }
