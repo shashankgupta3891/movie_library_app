@@ -67,63 +67,10 @@ class SearchCard extends StatelessWidget {
               ),
             ),
           ),
-          PopupMenuButton<int>(
-            itemBuilder: (context) => [
-              // PopupMenuItem 1
-              PopupMenuItem(
-                value: 0,
-                // row with 2 children
-                child: Row(
-                  children: const [
-                    Icon(Icons.public),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text("Save to Public List"),
-                  ],
-                ),
-              ),
-              // PopupMenuItem 2
-              PopupMenuItem(
-                value: 1,
-                // row with two children
-                child: Row(
-                  children: const [
-                    Icon(Icons.security),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text("Save to Private List")
-                  ],
-                ),
-              ),
-              PopupMenuItem(
-                value: 1,
-                // row with two children
-                child: Row(
-                  children: const [
-                    Icon(Icons.security),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text("Add To Playlist")
-                  ],
-                ),
-              ),
-            ],
-            offset: const Offset(0, 100),
-            color: Colors.grey,
-            elevation: 2,
-            // on selected we show the dialog box
-            onSelected: (value) {
-              if (value == 1) {
-                viewModel.saveMovie(movieResult: movieData, isPrivate: false);
-              }
-              if (value == 2) {
-                viewModel.saveMovie(movieResult: movieData, isPrivate: true);
-              } else {
-                showSaveMovieToPlayListBottomSheet(context, movieData);
-              }
+          IconButton(
+            icon: const Icon(Icons.bookmark),
+            onPressed: () {
+              showSaveMovieToPlayListBottomSheet(context, movieData);
             },
           ),
         ],

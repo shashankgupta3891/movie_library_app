@@ -6,9 +6,9 @@ import 'package:movie_playlist/module/dashboard/view/reactive_components/create_
 import '../../../../common_import/ui_common_import.dart';
 import '../../controller/save_movie_to_playlist_viewmodel.dart';
 
-void showSaveMovieToPlayListBottomSheet(
-    BuildContext context, MovieResult movieResult) {
-  showModalBottomSheet(
+Future<void> showSaveMovieToPlayListBottomSheet(
+    BuildContext context, MovieResult movieResult) async {
+  await showModalBottomSheet(
     context: context,
     builder: (builder) {
       return ChangeNotifierProvider<SaveMovieToPlaylistViewModel>(
@@ -92,6 +92,11 @@ class SaveMovieToPlayListBottomSheet extends StatelessWidget {
                   onPressed: () => {
                     viewModel.onSubmit().then((value) {
                       if (value) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Movie added to playlist'),
+                          ),
+                        );
                         Navigator.pop(context);
                       }
                     }),
