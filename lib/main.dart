@@ -6,11 +6,13 @@ import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_playlist/core/localization/label_overrides_localization.dart';
+import 'package:movie_playlist/core/service/navigator_service.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/provider/provider_scope.dart';
 import 'package:movie_playlist/route/route_manager.dart';
 
 import 'firebase_options.dart';
+import 'fluto_project/fluto.dart';
 
 final actionCodeSettings = ActionCodeSettings(
   url: 'https://flutterfire-e2e-tests.firebaseapp.com',
@@ -44,7 +46,12 @@ Future<void> main() async {
 
   setupDependencies();
 
-  runApp(const ProviderScope(child: MovieLibraryApp()));
+  runApp(
+    Fluto(
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      child: const ProviderScope(child: MovieLibraryApp()),
+    ),
+  );
 }
 
 // Overrides a label for en locale
@@ -64,6 +71,8 @@ class MovieLibraryApp extends StatelessWidget {
     );
 
     return MaterialApp(
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      builder: (context, child) => TopWidget(child: child!),
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,

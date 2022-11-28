@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 abstract class BaseProvider extends ChangeNotifier {
   BaseProvider() {
-    log("Provider Started");
+    // log("Provider Started");
   }
 
   void log(Object? object) {
     String line = "$object";
-    developer.log(line, name: runtimeType.toString());
+    if (false) {
+      developer.log(line, name: runtimeType.toString());
+    }
   }
 }
