@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_playlist/core/localization/label_overrides_localization.dart';
 import 'package:movie_playlist/core/service/navigator_service.dart';
+import 'package:movie_playlist/fluto_project/components/screen_wrapper.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/provider/provider_scope.dart';
 import 'package:movie_playlist/route/route_manager.dart';
@@ -72,7 +73,7 @@ class MovieLibraryApp extends StatelessWidget {
 
     return MaterialApp(
       navigatorKey: locator<NavigationService>().navigatorKey,
-      builder: (context, child) => TopWidget(child: child!),
+      builder: (context, child) => FlutoScreenWrapper(child: child!),
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
