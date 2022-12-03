@@ -1,4 +1,5 @@
 import 'package:movie_playlist/common_import/ui_common_import.dart';
+import 'package:movie_playlist/fluto_project/components/fluto_plugin_sheet.dart';
 
 import 'provider/fluto_provider.dart';
 
@@ -30,40 +31,12 @@ class _FlutoState extends State<Fluto> {
         final showDialog = context
             .select<FlutoProvider, bool>((value) => value.isDialogShowing);
         if (showDialog) {
-          showFlutoBottomSheet();
+          showFlutoBottomSheet(widget.navigatorKey.currentContext!);
         }
 
         return child ?? Container();
       },
       child: widget.child,
-    );
-  }
-
-  Future<void> showFlutoBottomSheet() async {
-    showModalBottomSheet(
-      isDismissible: false,
-      enableDrag: false,
-      context: widget.navigatorKey.currentContext!,
-      builder: (context) => WillPopScope(
-        onWillPop: () async {
-          context.read<FlutoProvider>().setIsDialogShowing(false);
-          return await Future.value(true);
-        },
-        child: Column(
-          children: [
-            ListTile(
-              title: const Text("Fluto Project"),
-              trailing: IconButton(
-                onPressed: () {
-                  Navigator.of(widget.navigatorKey.currentContext!).pop();
-                  context.read<FlutoProvider>().setIsDialogShowing(false);
-                },
-                icon: const Icon(Icons.close),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

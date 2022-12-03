@@ -11,3 +11,5 @@ class FlutoProvider extends ChangeNotifier {
 
   final DragController dragController = DragController();
 }
+
+enum PluginSheetState { open, canOpen, closed }

@@ -8,9 +8,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_playlist/core/localization/label_overrides_localization.dart';
 import 'package:movie_playlist/core/service/navigator_service.dart';
 import 'package:movie_playlist/fluto_project/components/screen_wrapper.dart';
+import 'package:movie_playlist/fluto_project/core/plugin_manager.dart';
+import 'package:movie_playlist/fluto_project/plugin/fluto_network_inspector/fluto_network_inseptor.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/provider/provider_scope.dart';
 import 'package:movie_playlist/route/route_manager.dart';
+import 'package:uuid/uuid.dart';
 
 import 'firebase_options.dart';
 import 'fluto_project/fluto.dart';
@@ -47,6 +50,10 @@ Future<void> main() async {
 
   setupDependencies();
 
+  PlutoPluginManager.registerAllPlugins([
+    FlutoNetworkInspenctor(const Uuid().v4()),
+  ]);
+
   runApp(
     Fluto(
       navigatorKey: locator<NavigationService>().navigatorKey,
@@ -54,10 +61,6 @@ Future<void> main() async {
     ),
   );
 }
-
-// Overrides a label for en locale
-// To add localization for a custom language follow the guide here:
-// https://flutter.dev/docs/development/accessibility-and-localization/internationalization#an-alternative-class-for-the-apps-localized-resources
 
 class MovieLibraryApp extends StatelessWidget {
   const MovieLibraryApp({Key? key}) : super(key: key);
