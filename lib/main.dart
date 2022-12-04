@@ -3,21 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart'
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
+import 'package:fluto/core/plugin_manager.dart';
+import 'package:fluto/fluto.dart';
+import 'package:fluto/ui/components/screen_wrapper.dart';
+import 'package:fluto_network_inspector/fluto_network.dart';
+import 'package:fluto_network_inspector/fluto_network_inseptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_playlist/core/localization/label_overrides_localization.dart';
 import 'package:movie_playlist/core/service/navigator_service.dart';
-import 'package:movie_playlist/fluto_project/components/screen_wrapper.dart';
-import 'package:movie_playlist/fluto_project/core/plugin_manager.dart';
-import 'package:movie_playlist/fluto_project/plugin/fluto_network_inspector/fluto_network.dart';
-import 'package:movie_playlist/fluto_project/plugin/fluto_network_inspector/fluto_network_inseptor.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/provider/provider_scope.dart';
 import 'package:movie_playlist/route/route_manager.dart';
 import 'package:uuid/uuid.dart';
 
 import 'firebase_options.dart';
-import 'fluto_project/fluto.dart';
 
 FlutoNetwork flutoNetwork = FlutoNetwork();
 
