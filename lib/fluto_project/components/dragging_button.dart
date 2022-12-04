@@ -10,12 +10,12 @@ class DraggingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final flutoProvider = context.read<FlutoProvider>();
-    final isDialogShowing =
-        context.select<FlutoProvider, bool>((value) => value.isDialogShowing);
+    final showDraggingButton = context
+        .select<FlutoProvider, bool>((value) => value.showDraggingButton);
     return DraggableWidget(
       bottomMargin: 80,
       topMargin: 80,
-      intialVisibility: !isDialogShowing,
+      intialVisibility: showDraggingButton,
       horizontalSpace: 20,
       shadowBorderRadius: 50,
       initialPosition: AnchoringPosition.bottomRight,
@@ -23,7 +23,7 @@ class DraggingButton extends StatelessWidget {
       child: ElevatedButton(
         child: const Text("Launch Fluto"),
         onPressed: () {
-          flutoProvider.setIsDialogShowing(true);
+          flutoProvider.setSheetState(PluginSheetState.clicked);
         },
       ),
     );

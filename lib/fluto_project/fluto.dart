@@ -26,10 +26,10 @@ class _FlutoState extends State<Fluto> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => FlutoProvider(),
+      create: (context) => FlutoProvider(widget.navigatorKey),
       builder: (context, child) {
         final showDialog = context
-            .select<FlutoProvider, bool>((value) => value.isDialogShowing);
+            .select<FlutoProvider, bool>((value) => value.showButtonSheet);
         if (showDialog) {
           showFlutoBottomSheet(widget.navigatorKey.currentContext!);
         }

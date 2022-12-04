@@ -10,7 +10,6 @@ class FlutoScreenWrapper extends StatelessWidget {
     /// A drag controller to show/hide or move the widget around the screen
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.small(onPressed: () => {}),
       body: Stack(
         children: [
           child,

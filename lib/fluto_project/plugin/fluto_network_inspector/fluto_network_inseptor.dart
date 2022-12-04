@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_playlist/fluto_project/core/pluggable.dart';
+import 'package:movie_playlist/fluto_project/plugin/fluto_network_inspector/fluto_network.dart';
+
+import 'ui/page/alice_calls_list_screen.dart';
 
 class FlutoNetworkInspenctor extends Pluggable {
-  FlutoNetworkInspenctor(this.uniqueId);
+  FlutoNetworkInspenctor(this.uniqueId, this.flutoNetwork);
+
+  final FlutoNetwork flutoNetwork;
 
   final String uniqueId;
 
@@ -13,7 +18,7 @@ class FlutoNetworkInspenctor extends Pluggable {
   PluginType get pluginType => PluginType.screen;
 
   @override
-  Widget get buildWidget => const NetworkInspectorPlugin();
+  Widget get buildWidget => AliceCallsListScreen(flutoNetwork);
 
   @override
   String get displayName => "Network Inspector";
@@ -45,7 +50,9 @@ class PluginScreen extends StatelessWidget {
 }
 
 class NetworkInspectorPlugin extends StatelessWidget {
-  const NetworkInspectorPlugin({super.key});
+  const NetworkInspectorPlugin({super.key, required this.flutoNetwork});
+
+  final FlutoNetwork flutoNetwork;
 
   @override
   Widget build(BuildContext context) {

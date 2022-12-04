@@ -1,13 +1,22 @@
+import 'package:dio/dio.dart';
 import 'package:movie_playlist/core/api_constants.dart';
+import 'package:movie_playlist/main.dart';
 import 'package:movie_playlist/model/tmdb_response_model.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class TMDBApiRepository {
+  // Interceptors getListInterceptors() {
+  //   Interceptors interceptors = Interceptors();
+  //   interceptors.add(flutoNetwork.getDioInterceptor());
+  //   return interceptors;
+  // }
+
   final TMDB _tmdbWithCustomLogs = TMDB(
     ApiKeys(
       ApiConstants.apikey,
       ApiConstants.readAccessToken,
     ),
+    interceptors: Interceptors()..add(flutoNetwork.getDioInterceptor()),
     logConfig: const ConfigLogger(
       showLogs: true,
       showErrorLogs: true,

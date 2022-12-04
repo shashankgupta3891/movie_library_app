@@ -9,6 +9,7 @@ import 'package:movie_playlist/core/localization/label_overrides_localization.da
 import 'package:movie_playlist/core/service/navigator_service.dart';
 import 'package:movie_playlist/fluto_project/components/screen_wrapper.dart';
 import 'package:movie_playlist/fluto_project/core/plugin_manager.dart';
+import 'package:movie_playlist/fluto_project/plugin/fluto_network_inspector/fluto_network.dart';
 import 'package:movie_playlist/fluto_project/plugin/fluto_network_inspector/fluto_network_inseptor.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/provider/provider_scope.dart';
@@ -17,6 +18,8 @@ import 'package:uuid/uuid.dart';
 
 import 'firebase_options.dart';
 import 'fluto_project/fluto.dart';
+
+FlutoNetwork flutoNetwork = FlutoNetwork();
 
 final actionCodeSettings = ActionCodeSettings(
   url: 'https://flutterfire-e2e-tests.firebaseapp.com',
@@ -51,7 +54,7 @@ Future<void> main() async {
   setupDependencies();
 
   PlutoPluginManager.registerAllPlugins([
-    FlutoNetworkInspenctor(const Uuid().v4()),
+    FlutoNetworkInspenctor(const Uuid().v4(), flutoNetwork),
   ]);
 
   runApp(
