@@ -54,6 +54,12 @@ dependencies:
     path: fluto
   fluto_network_inspector:
     path: fluto_network_inspector
+  fluto_alice:
+    path: fluto_alice
+  fluto_shared_preferences_viewer:
+    path: fluto_shared_preferences_viewer
+  fluto_logger:
+    path: fluto_logger
 
 dev_dependencies:
   flutter_test:

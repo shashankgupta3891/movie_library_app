@@ -1,0 +1,85 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "movie_playlist",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "movie_playlist (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "movie_playlist (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "fluto",
+            "cwd": "fluto",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "fluto (profile mode)",
+            "cwd": "fluto",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "fluto (release mode)",
+            "cwd": "fluto",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "fluto_alice",
+            "cwd": "fluto_alice",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "fluto_alice (profile mode)",
+            "cwd": "fluto_alice",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "fluto_alice (release mode)",
+            "cwd": "fluto_alice",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "fluto_network_inspector",
+            "cwd": "fluto_network_inspector",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "fluto_network_inspector (profile mode)",
+            "cwd": "fluto_network_inspector",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "fluto_network_inspector (release mode)",
+            "cwd": "fluto_network_inspector",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

@@ -16,7 +16,11 @@ class TMDBApiRepository {
       ApiConstants.apikey,
       ApiConstants.readAccessToken,
     ),
-    interceptors: Interceptors()..add(flutoNetwork.getDioInterceptor()),
+    interceptors: Interceptors()
+      ..addAll([
+        flutoNetwork.getDioInterceptor(),
+        alice.getDioInterceptor(),
+      ]),
     logConfig: const ConfigLogger(
       showLogs: true,
       showErrorLogs: true,
