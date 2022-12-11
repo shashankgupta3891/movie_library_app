@@ -6,8 +6,10 @@ import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:fluto/core/plugin_manager.dart';
 import 'package:fluto/fluto.dart';
 import 'package:fluto/ui/components/screen_wrapper.dart';
+import 'package:fluto_alice/fluto_alice.dart';
 import 'package:fluto_network_inspector/fluto_network.dart';
 import 'package:fluto_network_inspector/fluto_network_inseptor.dart';
+import 'package:fluto_shared_preferences_viewer/fluto_shared_preferences_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_playlist/core/localization/label_overrides_localization.dart';
@@ -15,11 +17,14 @@ import 'package:movie_playlist/core/service/navigator_service.dart';
 import 'package:movie_playlist/locator.dart';
 import 'package:movie_playlist/provider/provider_scope.dart';
 import 'package:movie_playlist/route/route_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import 'firebase_options.dart';
 
 FlutoNetwork flutoNetwork = FlutoNetwork();
+
+FlutoAlice alice = FlutoAlice();
 
 final actionCodeSettings = ActionCodeSettings(
   url: 'https://flutterfire-e2e-tests.firebaseapp.com',
@@ -36,6 +41,17 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  final pref = await SharedPreferences.getInstance();
+
+  pref.setInt('count', 999);
+  pref.setString('username', 'John Appleseed');
+  pref.setBool('didViewedPolicy', false);
+  pref.setDouble('height', 1234.5678);
+  pref.setStringList(
+    'staredLanguage',
+    ['Dart', 'Swift', 'Kotlin', 'Objective-C', 'Java'],
+  );
 
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
@@ -55,6 +71,9 @@ Future<void> main() async {
 
   PlutoPluginManager.registerAllPlugins([
     FlutoNetworkInspenctor(const Uuid().v4(), flutoNetwork),
+    FlutoAlicePlugin(const Uuid().v4(), alice),
+    FlutoSharedPreferencesViewerPlugin(const Uuid().v4()),
+    FlutoLoggerPlugin(const Uuid().v4(), FlutoLogger()),
   ]);
 
   runApp(
