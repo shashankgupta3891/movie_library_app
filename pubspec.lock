@@ -323,6 +323,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  fluto_logger:
+    dependency: "direct main"
+    description:
+      path: fluto_logger
+      relative: true
+    source: path
+    version: "0.0.1"
   fluto_network_inspector:
     dependency: "direct main"
     description:
@@ -518,6 +525,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  logger_plus:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "5c172f244c535fe44fe4f9285a9350f025a3d234"
+      url: "https://github.com/shashankgupta3891/logger_plus.git"
+    source: git
+    version: "0.0.6+4"
   logging:
     dependency: transitive
     description:

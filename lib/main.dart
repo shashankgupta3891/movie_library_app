@@ -7,6 +7,7 @@ import 'package:fluto/core/plugin_manager.dart';
 import 'package:fluto/fluto.dart';
 import 'package:fluto/ui/components/screen_wrapper.dart';
 import 'package:fluto_alice/fluto_alice.dart';
+import 'package:fluto_logger/fluto_logger.dart';
 import 'package:fluto_network_inspector/fluto_network.dart';
 import 'package:fluto_network_inspector/fluto_network_inseptor.dart';
 import 'package:fluto_shared_preferences_viewer/fluto_shared_preferences_viewer.dart';
@@ -25,6 +26,8 @@ import 'firebase_options.dart';
 FlutoNetwork flutoNetwork = FlutoNetwork();
 
 FlutoAlice alice = FlutoAlice();
+
+FlutoLogger logger = FlutoLogger();
 
 final actionCodeSettings = ActionCodeSettings(
   url: 'https://flutterfire-e2e-tests.firebaseapp.com',
@@ -73,7 +76,7 @@ Future<void> main() async {
     FlutoNetworkInspenctor(const Uuid().v4(), flutoNetwork),
     FlutoAlicePlugin(const Uuid().v4(), alice),
     FlutoSharedPreferencesViewerPlugin(const Uuid().v4()),
-    FlutoLoggerPlugin(const Uuid().v4(), FlutoLogger()),
+    FlutoLoggerPlugin(const Uuid().v4(), logger),
   ]);
 
   runApp(
