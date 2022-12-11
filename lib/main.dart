@@ -53,7 +53,13 @@ Future<void> main() async {
   pref.setDouble('height', 1234.5678);
   pref.setStringList(
     'staredLanguage',
-    ['Dart', 'Swift', 'Kotlin', 'Objective-C', 'Java'],
+    [
+      'Dart',
+      'Swift',
+      'Kotlin',
+      'Objective-C',
+      'Java',
+    ],
   );
 
   FirebaseUIAuth.configureProviders([
@@ -72,6 +78,11 @@ Future<void> main() async {
 
   setupDependencies();
 
+  logger.d('Hello World');
+  logger.e('Hello World');
+  logger.wtf('Hello World');
+  logger.i('Hello World');
+
   PlutoPluginManager.registerAllPlugins([
     FlutoNetworkInspenctor(const Uuid().v4(), flutoNetwork),
     FlutoAlicePlugin(const Uuid().v4(), alice),
@@ -85,6 +96,11 @@ Future<void> main() async {
       child: const ProviderScope(child: MovieLibraryApp()),
     ),
   );
+
+  logger.d('Hello World');
+  logger.e('Hello World');
+  logger.wtf('Hello World');
+  logger.i('Hello World');
 }
 
 class MovieLibraryApp extends StatelessWidget {

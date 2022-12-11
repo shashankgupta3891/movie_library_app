@@ -525,15 +525,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  logger_plus:
+  logger_fork:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "5c172f244c535fe44fe4f9285a9350f025a3d234"
-      url: "https://github.com/shashankgupta3891/logger_plus.git"
-    source: git
-    version: "0.0.6+4"
+      name: logger_fork
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   logging:
     dependency: transitive
     description:
